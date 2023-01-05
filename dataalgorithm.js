@@ -1,3 +1,67 @@
+//Data Algorithms
+//What is Big O notation
+//Big o notation is where you measure the time complexity of a function
+// a few tricks,
+//if the function has a variable then it is O(1)
+//if the function has 1 for loop then it is O(n)
+//if the function has two for loops then it it is O(n^2)
+
+//Space complexity is measured with the way variables are measured
+//Variables
+//Data structures
+//function calls
+//locations
+
+//these things take space
+//a regular for loop is O(1) but if you're adding more than one element like an array and pushing eleemnts to it you're looking at O(n)
+
+//Frequency Pattern
+//Write a function called same which accepts two arrays. The function should return true
+//if every value in the array has it's corresponding value squared in the second array.The frequency of values must be the same
+
+//Naive solution
+function same(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    let correctIndex = arr2.indexOf(arr1[i] ** 2);
+    if (correctIndex === -1) {
+      return false;
+    }
+    arr2.splice(correctIndex, 1);
+  }
+  return true;
+}
+
+//frequency counter pattern
+function same(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  let first = {};
+  let second = {};
+
+  for (let val of arr1) {
+    first[val] = (first[val] || 0) + 1;
+  }
+
+  for (let val of arr2) {
+    second[val] = (second[val] || 0) + 1;
+  }
+
+  for (let key in first) {
+    if (!(key ** 2 in second)) {
+      return false;
+    }
+    if (first[key ** 2] !== second[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 //Singlelinked list
 class Nodevalue {
   constructor(value) {
@@ -51,11 +115,11 @@ class SingleLinkedList {
     if (!this.h) return null;
     let curr = this.h;
     this.h = curr.next;
+    this.l--;
     if (this.l === 0) {
       this.h = null;
       this.t = null;
     }
-    this.l--;
     return this;
   }
 
@@ -175,6 +239,7 @@ class DoublyLinkedList {
         current = current.next;
         count++;
       }
+      return current;
     } else {
       count = this.length - 1;
       current = this.tail;
